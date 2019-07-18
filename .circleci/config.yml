@@ -1,0 +1,61 @@
+# Python CircleCI 2.0 configuration file
+
+#should always start with a version number
+version: 2
+
+# jobs refer to a single execution of the build
+jobs:
+  # build is the name of the job....they can be multiple and unique
+  build:
+    # builds occur in a docker container
+    docker:
+      - image: circleci/python:3.7
+    working_directory: ~/repo
+
+    # series/ list of steps done for the build
+    steps:
+      # Step 1: obtain repo from GitHub
+      - checkout
+      # Step 2: create virtual env and install dependencies
+      - run:
+          name: install dependencies
+          command: |
+            python3 -m venv venv
+            . venv/bin/activate
+            pip install --upgrade pip
+            pip install -r requirements.txt
+      # Step 3: run linter and tests
+      - run:
+          name: run tests
+          command: |
+            . venv/bin/activate
+            coverage run --source='.' manage.py test
+            coverage report
+            coverage html
+      #deploying to pypi
+      - run:
+          name: verify git tag vs. version
+          command: |
+            python3 -m venv venv
+            . venv/bin/activate
+          #  python setup.py verify
+
+      - run:
+          name: init .pypirc
+          command: |
+            echo -e "[pypi]" >> ~/.pypirc
+            echo -e "username = njogu487" >> ~/.pypirc
+            echo -e "password = $PYPI_PASSWORD" >> ~/.pypirc      
+
+      - run:
+          name: create packages
+          command: |
+            python setup.py sdist
+
+      - run:
+          name: upload to pypi
+          command: |
+            . venv/bin/activate
+            pip install twine
+            twine upload dist/*
+            
