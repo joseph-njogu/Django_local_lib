@@ -1,0 +1,10 @@
+[run]
+source = catalog
+omit = *migrations*, *tests*
+
+[report]
+omit =
+    catalog/apps.py
+    locallib/wsgi.py
+    locallib/urls_prometheus_wrapper.py
+
