@@ -30,6 +30,7 @@ jobs:
           command: |
             . venv/bin/activate
             cd locallib
+            coverage run --source="." manage.py test
             coverage report
             coverage html
       # #deploying to pypi
