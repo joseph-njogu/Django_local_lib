@@ -7,4 +7,6 @@ omit =
     catalog/apps.py
     locallib/wsgi.py
     locallib/urls_prometheus_wrapper.py
+    catalog/views.py
+    locallib/models.py 
 

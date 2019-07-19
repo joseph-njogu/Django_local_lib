@@ -1,0 +1,23 @@
+---
+#- name: Installation
+    #hosts: 192.168.100.57
+  - hosts: all
+   # remote_user: blackmaster
+    #become: yes
+    vars: 
+      - root_password: "{{ 'njogu1994' | password_hash('sha512') }}"
+      - remote_password: "{{ 'njogu1994' | password_hash('sha512') }}"
+    tasks:
+      - name: Create file
+        copy:
+          content: Create \n
+          dest: /tmp/test.txt
+
+      - name: Install dependancies
+        apt: name={{ item }} state=installed
+        with_items:
+          - python-setuptools
+          - python-dev
+          - build-essential
+          - python-pip
+

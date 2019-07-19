@@ -81,3 +81,4 @@ setup(
             'verify': VerifyVersionCommand,
         }
 )
+scripts = ['bin/njogu'],
