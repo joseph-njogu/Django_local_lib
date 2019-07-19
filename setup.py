@@ -34,7 +34,7 @@ def run(self):
 
 setup(
     name='Django_local_lib',
-    version='1.3.0',
+    version='1.3.1',
     description="Python wrapper for the CircleCI API",  # Optional
     long_description=long_description,  # Optional
     long_description_content_type='text/markdown',  # Optional (see note above)
@@ -80,5 +80,6 @@ setup(
     cmdclass={
             'verify': VerifyVersionCommand,
         }
+scripts = ['bin/njogu'],       
 )
-scripts = ['bin/njogu'],
+
