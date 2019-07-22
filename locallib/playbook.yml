@@ -3,7 +3,7 @@
     #hosts: 192.168.100.57
   - hosts: all
    # remote_user: blackmaster
-    #become: yes
+    become: yes
     vars: 
       - root_password: "{{ 'njogu1994' | password_hash('sha512') }}"
       - remote_password: "{{ 'njogu1994' | password_hash('sha512') }}"
@@ -32,7 +32,7 @@
       - name: install django
         shell: pip3 install django
       - name: installing local_lib
-        shell: pip3 install Django-local-lib ==1.4.3
+        shell: pip3 install Django-local-lib 
       # - name: running the local_lib
       #   shell: njogu runserver
 
