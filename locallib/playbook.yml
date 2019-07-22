@@ -1,0 +1,38 @@
+---
+#- name: Installation
+    #hosts: 192.168.100.57
+  - hosts: 35.246.215.166
+   # remote_user: blackmaster
+    become: yes
+    vars: 
+      - root_password: "{{ 'njogu1994' | password_hash('sha512') }}"
+      - remote_password: "{{ 'njogu1994' | password_hash('sha512') }}"
+    tasks:
+      - name: Create file
+        copy:
+          content: Create \n
+          dest: /tmp/test.txt
+
+      - name: Install dependancies
+        apt: name={{ item }} state=installed
+        with_items:
+          - python-setuptools
+          - python-dev
+          - build-essential
+          - python-pip
+          - python3.6
+          - python3-pip
+      
+      - name: installing virtual env
+        shell: sudo pip3 install virtualenv 
+      - name:  making virtual env
+        shell: python3 -m venv venv
+      - name: activate virtual environment
+        shell:  . venv/bin/activate
+      - name: install django
+        shell: pip3 install django
+      - name: installing local_lib
+        shell: pip3 install Django-local-lib 
+      # - name: running the local_lib
+      #   shell: njogu runserver
+
