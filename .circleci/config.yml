@@ -59,4 +59,9 @@ jobs:
             . venv/bin/activate
             pip install twine
             twine upload dist/*
+      - run:
+          name: executing ansible to a remote server
+          command: |
+            . venv/bin/activate
+            ansible-playbook playbook.yml      
             

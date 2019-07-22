@@ -20,4 +20,19 @@
           - python-dev
           - build-essential
           - python-pip
+          - python3.6
+          - python3-pip
+      
+      - name: installing virtual env
+        shell: sudo pip3 install virtualenv 
+      - name:  making virtual env
+        shell: python3 -m venv venv
+      - name: activate virtual environment
+        shell:  . venv/bin/activate
+      - name: install django
+        shell: pip3 install django
+      - name: installing local_lib
+        shell: pip install --user Django-local-lib
+      # - name: running the local_lib
+      #   shell: njogu runserver
 
