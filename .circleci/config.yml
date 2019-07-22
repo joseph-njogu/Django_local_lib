@@ -67,5 +67,5 @@ jobs:
           command: |
             . venv/bin/activate
             pip install ansible
-            ansible-playbook playbook.yml      
+            ansible-playbook locallib/playbook.yml      
             
