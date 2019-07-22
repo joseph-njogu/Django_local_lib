@@ -51,7 +51,8 @@ jobs:
       - run:
           name: create packages
           command: |
-            python setup.py sdist
+            python3 setup.py sdist bdist_wheel
+           # python setup.py sdist
 
       - run:
           name: upload to pypi
@@ -60,7 +61,7 @@ jobs:
             pip install twine
             twine upload dist/*
 
-            
+
       # - run:
       #     name: executing ansible to a remote server
       #     command: |

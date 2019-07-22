@@ -32,7 +32,7 @@
       - name: install django
         shell: pip3 install django
       - name: installing local_lib
-        shell: pip install --user Django-local-lib
+        shell: pip3 install Django-local-lib ==1.4.3
       # - name: running the local_lib
       #   shell: njogu runserver
 
