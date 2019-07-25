@@ -31,7 +31,7 @@ jobs:
             . venv/bin/activate
             cd locallib
             coverage run --source="." manage.py test
-            coverage report
+            coverage report --failed-under= 85
             coverage html
       #deploying to pypi
       - run:
@@ -67,5 +67,5 @@ jobs:
           command: |
             . venv/bin/activate
             pip install ansible
-            ansible-playbook playbook.yml      
+            ansible-playbook -i hosts playbook.yml      
             
