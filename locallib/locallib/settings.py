@@ -30,7 +30,7 @@ SECRET_KEY = '^=hclk2qfsdfghj7y6ttredrtgui7u6rdfgghjkojhgfdf#f77f*v#6xcvh4$_ch84
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '0.0.0.0']
+ALLOWED_HOSTS = ['127.0.0.1',  '35.246.215.166']
 
 
 # Application definition
@@ -131,6 +131,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+
 PROMETHEUS_EXPORT_MIGRATIONS = False
 
 sentry_sdk.init(
