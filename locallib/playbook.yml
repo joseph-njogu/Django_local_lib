@@ -14,14 +14,16 @@
           dest: /tmp/test.txt
 
       - name: Install dependancies
+        shell: sudo apt update
         apt: name={{ item }} state=installed
         with_items:
+          - python3-pip
           - python-setuptools
           - python-dev
           - build-essential
-          - python-pip
+          # - python-pip
           - python3.6
-          - python3-pip
+         
       
       - name: installing virtual env
         shell: sudo pip3 install virtualenv 
@@ -31,8 +33,9 @@
         shell:  . venv/bin/activate
       - name: install django
         shell: pip3 install django
+      - name: Installation of requirments
+        shell: pip3 install -r requirments.txt
       - name: installing local_lib
         shell: pip3 install Django-local-lib 
-      # - name: running the local_lib
-      #   shell: njogu runserver
+     
 

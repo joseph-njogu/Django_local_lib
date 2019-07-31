@@ -1,6 +1,4 @@
 ---
-#- name: Installation
-    #hosts: 192.168.100.57
   - hosts: all
    # remote_user: blackmaster
     become: yes
@@ -8,6 +6,8 @@
     #   - root_password: "{{ 'njogu1994' | password_hash('sha512') }}"
     #   - remote_password: "{{ 'njogu1994' | password_hash('sha512') }}"
     tasks:
+      - name: updating the system
+        shell: sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 8C47BE8E75BCA694 
       - name: Create file
         copy:
           content: Create \n
@@ -22,7 +22,9 @@
           - python-pip
           - python3.6
           - python3-pip
-      
+          - python3-venv
+      - name: updating pip3
+        shell: sudo pip install --upgrade pip
       - name: installing virtual env
         shell: sudo pip3 install virtualenv 
       - name:  making virtual env
@@ -33,6 +35,112 @@
         shell: pip3 install django
       - name: installing local_lib
         shell: pip3 install Django-local-lib 
-      # - name: running the local_lib
-      #   shell: njogu runserver
 
+      - name: ensure nginx is at the latest version
+        apt: name=nginx state=latest
+      - name: start nginx
+        service:
+            name: nginx
+            state: started
+      - name: Create directory Remote
+        file:
+          state: directory
+          path: Remote
+
+      - name: Pull project from github
+        git:
+          repo: 'https://github.com/joseph-njogu/Django_local_lib.git'
+          dest: Remote/  
+      - name: installing requirements
+        pip:
+          requirements: /home/elephant/Remote/requirements.txt
+          virtualenv: /home/elephant/venv
+          virtualenv_python: python3.6
+
+
+      - name: Install missing dependancy
+        shell: pip3 install sentry-sdk==0.10.1
+      - name: Makemigrations  
+        shell: python3 /home/elephant/Remote/locallib/manage.py migrate
+      - name: Recursively change ownership of a directory
+        file:
+          path: /home/elephant/Remote/locallib
+          state: directory
+          recurse: yes
+          owner: elephant
+
+      - name: start gunicorn
+        shell: |
+          . /home/elephant/venv/bin/activate
+          cd /home/elephant/Remote/locallib
+          gunicorn --daemon --workers 3 --bind unix:/home/elephant/Remote/locallib/locallib.sock locallib.wsgi
+        # shell: gunicorn --daemon --workers 3 --bind unix:/home/elephant/Remote/locallib/locallib.sock locallib.wsgi
+      
+      - name: copy the nginx config file
+        copy: 
+          src: /home/elephant/Desktop/nginxconf/locallib
+          dest: /etc/nginx/sites-available/
+        become: yes
+
+      - name: create symlink
+        file:
+          src: /etc/nginx/sites-available/locallib
+          dest: /etc/nginx/sites-enabled/default
+          state: link
+        become: yes  
+      - name: restart nginx
+        service:
+          name: nginx
+          state: restarted
+        become: yes  
+
+      - name: stopping
+        service:
+          name: nginx
+          state: stopped
+        become: yes
+
+      - name: updating the system
+        shell: sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 8C47BE8E75BCA694   
+      - name: add repository for certbot
+        apt_repository: 
+          repo: deb http://ppa.launchpad.net/certbot/certbot/ubuntu bionic main
+          state: present
+        when: ansible_distribution_release == 'bionic'
+            
+      - name: Install base packages
+        apt: 
+          name: "{{ packages }}"
+        vars:
+          packages:
+            - python-certbot-nginx
+
+      - name: Enable UFW
+        ufw:
+          state: enabled
+
+      - name: Allow OpenSSH
+        ufw:
+          rule: allow
+          name: OpenSSH
+
+      - name: Allow Nginx Full
+        ufw:
+          rule: allow
+          name: Nginx Full
+      - name: Obtain SSL certificate
+        shell: certbot  --nginx --noninteractive --agree-tos --email josephnjogu487@gmail.com -d josephdevs.duckdns.org -d www.josephdevs.duckdns.org
+        become: yes
+      - name: Free port 80
+        command: fuser -k 80/tcp
+        become: yes
+      # - name: Generate Certificate for Domains
+      #   shell: certbot-auto --authenticator standalone --installer nginx -d josephdevs.duckdns.org -d www.josephdevs.duckdns.org -d --email josephnjogu487@gmail.com --agree-tos -n --no-verify-ssl --pre-hook "sudo systemctl stop nginx" --post-hook "sudo systemctl start nginx" --redirect
+       
+      - name: restart nginx
+        service:
+          name: nginx
+          state: restarted
+        become: yes
+
+          
