@@ -50,7 +50,9 @@
       - name: Pull project from github
         git:
           repo: 'https://github.com/joseph-njogu/Django_local_lib.git'
-          dest: Remote/  
+          dest: Remote/
+          update: no
+          force: no
       - name: installing requirements
         pip:
           requirements: /home/elephant/Remote/requirements.txt

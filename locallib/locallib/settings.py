@@ -30,7 +30,7 @@ SECRET_KEY = '^=hclk2qfsdfghj7y6ttredrtgui7u6rdfgghjkojhgfdf#f77f*v#6xcvh4$_ch84
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1',  '35.246.215.166']
+ALLOWED_HOSTS = ['127.0.0.1',  'josephdevs.duckdns.org', 'www.josephdevs.duckdns.org']
 
 
 # Application definition
