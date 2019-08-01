@@ -1,2 +1,6 @@
 [ubuntuserver]
 www.josephdevs.duckdns.org
+
+[ubuntuserver:vars]
+ansible_ssh_private_key_file=~/.ssh/id_rsa
+ansible_user=circleci
