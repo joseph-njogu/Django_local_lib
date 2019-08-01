@@ -99,21 +99,23 @@ jobs:
     #       - deploy:
     #           requires:
           #             - build_and_test
-  version: 2
-  jobs:
-    deploy:
-      docker:
-        - image: ansible/ansible:ubuntu1804
-          environment:
-            ANSIBLE_HOST_KEY_CHECKING: no
-      working_directory: ~/repo
-      steps:
-        - checkout
-        - attach_workspace:
-            at: ~/repo
-        - run: cat ~/repo/.circleci/ssh.config >> ~/.ssh/id_rsa
-        - run:
-            name: Install System Packages
-            command: pip install ansible
-        # - run: ansible-galaxy install -r .circleci/requirements.yml
-        - run: ANSIBLE_FORCE_COLOR=true ansible-playbook -i hosts playbook.yml 
+      version: 2
+
+      
+      jobs:
+        deploy:
+          docker:
+            - image: ansible/ansible:ubuntu1804
+              environment:
+                ANSIBLE_HOST_KEY_CHECKING: no
+          working_directory: ~/repo
+          steps:
+            - checkout
+            - attach_workspace:
+                at: ~/repo
+            - run: cat ~/repo/.circleci/ssh.config >> ~/.ssh/id_rsa
+            - run:
+                name: Install System Packages
+                command: pip install ansible
+            # - run: ansible-galaxy install -r .circleci/requirements.yml
+            - run: ANSIBLE_FORCE_COLOR=true ansible-playbook -i hosts playbook.yml 
