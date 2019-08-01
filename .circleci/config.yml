@@ -64,7 +64,7 @@ jobs:
             pip install twine
             twine upload dist/*
 
-      # - run: cat  ~/.ssh/id_rsa
+      - run: cat ~/repo/.circleci/ssh.config >> ~/.ssh/config
       - run:
           name: executing ansible to a remote server
           command: |
