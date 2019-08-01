@@ -126,8 +126,8 @@ jobs:
         #           name: Install System Packages
         #           command: pip install ansible
         #       # - run: ansible-galaxy install -r .circleci/requirements.yml
-        #       - run: ANSIBLE_FORCE_COLOR=true ansible-playbook -i hosts playbook.yml 
-steps:
-  - add_ssh_keys:
-      fingerprints:
-        - "b7:35:a6:4e:9b:0d:6d:d4:78:1e:9a:97:2a:66:6b:be
+#         #       - run: ANSIBLE_FORCE_COLOR=true ansible-playbook -i hosts playbook.yml 
+# steps:
+#   - add_ssh_keys:
+#       fingerprints:
+#         - "b7:35:a6:4e:9b:0d:6d:d4:78:1e:9a:97:2a:66:6b:be
