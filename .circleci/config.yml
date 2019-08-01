@@ -10,7 +10,7 @@ jobs:
     # builds occur in a docker container
     docker:
       - image: circleci/python:3.7
-      - image: ansible/ansible:ubuntu1804
+      - image: ansible/ansible:ubuntu1604
     environment:
       ANSIBLE_HOST_KEY_CHECKING: no
     working_directory: ~/repo
