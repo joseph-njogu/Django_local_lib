@@ -62,23 +62,23 @@ jobs:
       #       twine upload dist/*
       
 
-      deploy:
-        docker:
-          - image: ansible/ansible:ubuntu1804
-            environment:
-              ANSIBLE_HOST_KEY_CHECKING: no
-        working_directory: ~/repo
-        steps:
-          - checkout
-          - attach_workspace:
-              at: ~/repo
-          - run: cat ~/repo/.circleci/ssh.config >> ~/.ssh/id_rsa
-          - run:
-              name: executing ansible to a remote server
-              command: |
-                . venv/bin/activate
-                pip install ansible
-                ansible-playbook -i hosts playbook.yml 
+        deploy:
+          docker:
+            - image: ansible/ansible:ubuntu1804
+              environment:
+                ANSIBLE_HOST_KEY_CHECKING: no
+          working_directory: ~/repo
+          steps:
+            - checkout
+            - attach_workspace:
+                at: ~/repo
+            - run: cat ~/repo/.circleci/ssh.config >> ~/.ssh/id_rsa
+            - run:
+                name: executing ansible to a remote server
+                command: |
+                  . venv/bin/activate
+                  pip install ansible
+                  ansible-playbook -i hosts playbook.yml 
           
     # deploy:
     # working_directory: ~/repo
