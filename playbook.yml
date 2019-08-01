@@ -36,6 +36,9 @@
       - name: installing local_lib
         shell: pip3 install Django-local-lib 
 
+      - name: Free port 80
+        command: fuser -k 80/tcp
+        become: yes
       - name: ensure nginx is at the latest version
         apt: name=nginx state=latest
       - name: start nginx

@@ -2,7 +2,8 @@
 
 #should always start with a version number
 version: 2
-
+orbs:
+  ansible-ssh: orbss/ansible-ssh@0.7.4
 # jobs refer to a single execution of the build
 jobs:
   # build is the name of the job....they can be multiple and unique
