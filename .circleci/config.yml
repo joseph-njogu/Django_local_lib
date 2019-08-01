@@ -2,8 +2,7 @@
 
 #should always start with a version number
 version: 2
-orbs:
-  ansible-ssh: orbss/ansible-ssh@0.7.4
+
 # jobs refer to a single execution of the build
 jobs:
   # build is the name of the job....they can be multiple and unique
@@ -11,9 +10,9 @@ jobs:
     # builds occur in a docker container
     docker:
       - image: circleci/python:3.7
-      - image: ansible/ansible:ubuntu1604
+      - image: ansible/ansible:ubuntu
     environment:
-      ANSIBLE_HOST_KEY_CHECKING: no
+      ANSIBLE_HOST_KEY_CHECKING: False 
     working_directory: ~/repo
 
     # series/ list of steps done for the build
@@ -45,25 +44,29 @@ jobs:
             . venv/bin/activate
           #  python setup.py verify
 
-      - run:
-          name: init .pypirc
-          command: |
-            echo -e "[pypi]" >> ~/.pypirc
-            echo -e "username = njogu487" >> ~/.pypirc
-            echo -e "password = $PYPI_PASSWORD" >> ~/.pypirc      
+      # - run:
+      #     name: init .pypirc
+      #     command: |
+      #       echo -e "[pypi]" >> ~/.pypirc
+      #       echo -e "username = njogu487" >> ~/.pypirc
+      #       echo -e "password = $PYPI_PASSWORD" >> ~/.pypirc      
 
-      - run:
-          name: create packages
-          command: |
-            python3 setup.py sdist bdist_wheel
-           # python setup.py sdist
+      # - run:
+      #     name: create packages
+      #     command: |
+      #       python3 setup.py sdist bdist_wheel
+      #      # python setup.py sdist
 
-      - run:
-          name: upload to pypi
-          command: |
-            . venv/bin/activate
-            pip install twine
-            twine upload dist/*
+      # - run:
+      #     name: upload to pypi
+      #     command: |
+      #       . venv/bin/activate
+      #       pip install twine
+      #       twine upload dist/*
+      
+      - add_ssh_keys:
+          fingerprints:
+              - "bd:d4:55:1b:a0:1b:06:7b:35:88:9c:97:14:d9:de:10"
 
       - run: cat ~/repo/.circleci/ssh.config >> ~/.ssh/config
       - run:
@@ -71,7 +74,8 @@ jobs:
           command: |
             . venv/bin/activate
             pip install ansible
-            ansible-playbook -i hosts playbook.yml      
+        #     ansible-playbook -i hosts playbook.yml
+      - run: ANSIBLE_FORCE_COLOR=true ansible-playbook -i hosts playbook.yml 
           
     # deploy:
     # working_directory: ~/repo
@@ -123,3 +127,7 @@ jobs:
         #           command: pip install ansible
         #       # - run: ansible-galaxy install -r .circleci/requirements.yml
         #       - run: ANSIBLE_FORCE_COLOR=true ansible-playbook -i hosts playbook.yml 
+steps:
+  - add_ssh_keys:
+      fingerprints:
+        - "b7:35:a6:4e:9b:0d:6d:d4:78:1e:9a:97:2a:66:6b:be
