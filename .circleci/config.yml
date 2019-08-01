@@ -76,8 +76,8 @@ jobs:
           command: |
             . venv/bin/activate
             pip install ansible
-        #     ansible-playbook -i hosts playbook.yml
-            ANSIBLE_FORCE_COLOR=true ansible-playbook -i hosts playbook.yml 
+            ansible-playbook -i hosts playbook.yml
+        #   ANSIBLE_FORCE_COLOR=true ansible-playbook -i hosts playbook.yml 
           
     # deploy:
     # working_directory: ~/repo
