@@ -60,62 +60,23 @@ jobs:
             . venv/bin/activate
             pip install twine
             twine upload dist/*
+      version: 2
 
 
-      # - run:
-      #     name: executing ansible to a remote server
-      #     command: |
-      #       . venv/bin/activate
-      #       pip install ansible
-      #       ansible-playbook -i hosts playbook.yml      
-          
-    # deploy:
-    # working_directory: ~/repo
-    # docker:
-    #   - image: ansible/ansible:ubuntu1804
-    # steps:
-    #   # Installation
-    #   - run:
-    #       name: Install System Packages
-    #       command: pip install --upgrade pip && pip install ansible
-    #   # # Dependencies
-    #   # - checkout
-    #   # - restore_cache:
-    #   #     key: repo-{{ .Branch }}-{{ checksum "./ansible/requirements.yml" }}-v1
-    #   # - run: ansible-galaxy install -r ansible/requirements.yml
-    #   # - save_cache:
-    #   #     key: mootube-{{ .Branch }}-{{ checksum "./ansible/requirements.yml" }}-v1
-    #   #     paths:
-    #   #       - '/root/.ansible/roles'
-    #   # Deploy
-    #   - run: ansible-playbook ansible/deploy.yml -i ansible/hosts.ini --ask-vault-pass
-
-
-    # workflows:
-    #   version: 2
-    #   build_test_and_deploy:
-    #     jobs:
-    #       - build_and_test
-    #       - deploy:
-    #           requires:
-          #             - build_and_test
-        version: 2
-
-        
-        jobs:
-          deploy:
-            docker:
-              - image: ansible/ansible:ubuntu1804
-                environment:
-                  ANSIBLE_HOST_KEY_CHECKING: no
-            working_directory: ~/repo
-            steps:
-              - checkout
-              - attach_workspace:
-                  at: ~/repo
-              - run: cat ~/repo/.circleci/ssh.config >> ~/.ssh/id_rsa
-              - run:
-                  name: Install System Packages
-                  command: pip install ansible
-              # - run: ansible-galaxy install -r .circleci/requirements.yml
-              - run: ANSIBLE_FORCE_COLOR=true ansible-playbook -i hosts playbook.yml 
+      jobs:
+        deploy:
+          docker:
+            - image: ansible/ansible:ubuntu1804
+              environment:
+                ANSIBLE_HOST_KEY_CHECKING: no
+          working_directory: ~/repo
+          steps:
+            - checkout
+            - attach_workspace:
+                at: ~/repo
+            - run: cat ~/repo/.circleci/ssh.config >> ~/.ssh/id_rsa
+            - run:
+                name: Install System Packages
+                command: pip install ansible
+            # - run: ansible-galaxy install -r .circleci/requirements.yml
+            - run: ANSIBLE_FORCE_COLOR=true ansible-playbook -i hosts playbook.yml 
