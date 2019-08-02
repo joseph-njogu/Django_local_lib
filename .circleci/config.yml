@@ -10,7 +10,7 @@ jobs:
     # builds occur in a docker container
     docker:
       - image: circleci/python:3.7
-      - image: njogu487/ubuntu1804:latest
+      # - image: njogu487/ubuntu1804:latest
     environment:
       - ANSIBLE_HOST_KEY_CHECKING: False
       # - ANSIBLE_LOCAL_TEMP: /home/circleci/.ansible/tmp
@@ -69,14 +69,16 @@ jobs:
       - add_ssh_keys:
           fingerprints:
               - "03:7c:fd:60:6f:ae:57:11:6e:c4:00:64:ba:53:a7:51"
-      - run:
-          name: Make remote server a known host
-          command: ssh-keyscan josephdevs.duckdns.org >> ~/.ssh/known_hosts 
+      # - run:
+          # name: Make remote server a known host
+          # command: ssh-keyscan josephdevs.duckdns.org >> ~/.ssh/known_hosts 
       - run:
           name: executing ansible to a remote server
           command: |
             . venv/bin/activate
             pip install ansible
+            . Django_local_lib
+            ansible all -i hosts -m ping
             ansible-playbook -i hosts playbook.yml 
     #  - run: cat ~/repo/.circleci/ssh.config >> ~/.ssh/config
       
