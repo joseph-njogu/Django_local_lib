@@ -68,8 +68,10 @@
 
       - name: Install missing dependancy
         shell: pip3 install sentry-sdk==0.10.1
-      - name: Makemigrations  
-        shell: python3 /home/elephant/Remote/locallib/manage.py migrate
+      - name: Makemigrations
+        shell: |
+          . /home/elephant/venv/bin/activate
+          python3 /home/elephant/Remote/locallib/manage.py migrate
       - name: Recursively change ownership of a directory
         file:
           path: /home/elephant/Remote/locallib
