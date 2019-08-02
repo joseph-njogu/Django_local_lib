@@ -116,7 +116,7 @@
         apt_repository: 
           repo: deb http://ppa.launchpad.net/certbot/certbot/ubuntu bionic main
           state: present
-        when: ansible_distribution_release == 'bionic'
+        # when: ansible_distribution_release == 'bionic'
             
       - name: Install base packages
         apt: 
