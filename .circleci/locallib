@@ -1,0 +1,13 @@
+server {
+        listen 80 default_server;
+        listen [::]:80 default_server;
+		server_name josephdevs.duckdns.org www.josephdevs.duckdns.org;
+		location = /favicon.ico { access_log off; log_not_found off; }
+		location /static/ {
+		root /home/elephant/Remote/locallib;
+		}
+		location / {
+		include proxy_params;
+		proxy_pass http://unix:/home/elephant/Remote/locallib/locallib.sock;
+		}
+}

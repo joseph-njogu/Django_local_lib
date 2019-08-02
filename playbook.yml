@@ -87,8 +87,9 @@
         # shell: gunicorn --daemon --workers 3 --bind unix:/home/elephant/Remote/locallib/locallib.sock locallib.wsgi
       
       - name: copy the nginx config file
-        copy: 
-          src: /home/elephant/Desktop/nginxconf/locallib
+        copy:
+          
+          src: .circleci
           dest: /etc/nginx/sites-available/
         become: yes
 
