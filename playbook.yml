@@ -113,7 +113,7 @@
 
       # - name: updating the system
       #   shell: sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 8C47BE8E75BCA694   
-      # - name: add repository for certbot
+      - name: add repository for certbot
         apt_repository: 
           repo: deb http://ppa.launchpad.net/certbot/certbot/ubuntu bionic main
           state: present
