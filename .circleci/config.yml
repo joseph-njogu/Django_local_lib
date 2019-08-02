@@ -13,8 +13,6 @@ jobs:
       # - image: njogu487/ubuntu1804:latest
     environment:
       - ANSIBLE_HOST_KEY_CHECKING: False
-      # - ANSIBLE_LOCAL_TEMP: /home/circleci/.ansible/tmp
-      # - ANSIBLE_REMOTE_TEMP: /home/circleci/.ansible/tmp 
     working_directory: ~/repo
 
     # series/ list of steps done for the build
@@ -77,7 +75,7 @@ jobs:
           command: |
             . venv/bin/activate
             pip install ansible
-            ansible all -i hosts -m ping
+          #  ansible all -i hosts -m ping
             ansible-playbook -i hosts playbook.yml 
     #  - run: cat ~/repo/.circleci/ssh.config >> ~/.ssh/config
       
