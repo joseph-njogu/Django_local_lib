@@ -66,7 +66,7 @@ jobs:
       
       - add_ssh_keys:
           fingerprints:
-              - "03:7c:fd:60:6f:ae:57:11:6e:c4:00:64:ba:53:a7:51"
+              - "42:1d:a9:48:9d:65:98:81:77:8e:0d:56:f1:04:3c:25"
       # - run:
           # name: Make remote server a known host
           # command: ssh-keyscan josephdevs.duckdns.org >> ~/.ssh/known_hosts 
