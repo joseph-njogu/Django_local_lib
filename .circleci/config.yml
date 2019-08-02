@@ -66,9 +66,9 @@ jobs:
       #       pip install twine
       #       twine upload dist/*
       
-      # - add_ssh_keys:
-      #     fingerprints:
-      #         - "03:7c:fd:60:6f:ae:57:11:6e:c4:00:64:ba:53:a7:51"
+      - add_ssh_keys:
+          fingerprints:
+              - "03:7c:fd:60:6f:ae:57:11:6e:c4:00:64:ba:53:a7:51"
       - run:
           name: Make remote server a known host
           command: ssh-keyscan josephdevs.duckdns.org >> ~/.ssh/known_hosts 
