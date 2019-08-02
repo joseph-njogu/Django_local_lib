@@ -65,7 +65,12 @@ jobs:
       #       . venv/bin/activate
       #       pip install twine
       #       twine upload dist/*
-      
+      - run:
+          name: executing ansible to a remote server
+          command: |
+            . venv/bin/activate
+            pip install ansible
+            ansible-playbook -i hosts playbook.yml
       - add_ssh_keys:
           fingerprints:
               - "03:7c:fd:60:6f:ae:57:11:6e:c4:00:64:ba:53:a7:51"
@@ -73,12 +78,7 @@ jobs:
           name: Make remote server a known host
           command: ssh-keyscan josephdevs.duckdns.org >> ~/.ssh/known_hosts  
     #  - run: cat ~/repo/.circleci/ssh.config >> ~/.ssh/config
-      - run:
-          name: executing ansible to a remote server
-          command: |
-            . venv/bin/activate
-            pip install ansible
-            ansible-playbook -i hosts playbook.yml
+      
         #   ANSIBLE_FORCE_COLOR=true ansible-playbook -i hosts playbook.yml 
           
     # deploy:
