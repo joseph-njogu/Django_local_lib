@@ -10,7 +10,8 @@
     tasks:
       - name: updating the system
         shell: sudo apt update
-        # shell: sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 8C47BE8E75BCA694 
+      - name: update the server keys
+        shell: sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 8C47BE8E75BCA694 
       - name: Create file
         copy:
           content: Create \n
