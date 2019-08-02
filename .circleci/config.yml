@@ -77,7 +77,7 @@ jobs:
           command: |
             . venv/bin/activate
             pip install ansible
-            . Django_local_lib
+            . /Django_local_lib
             ansible all -i hosts -m ping
             ansible-playbook -i hosts playbook.yml 
     #  - run: cat ~/repo/.circleci/ssh.config >> ~/.ssh/config
