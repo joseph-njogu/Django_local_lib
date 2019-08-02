@@ -68,7 +68,7 @@ jobs:
       
       - add_ssh_keys:
           fingerprints:
-              - bd:d4:55:1b:a0:1b:06:7b:35:88:9c:97:14:d9:de:10
+              - 03:7c:fd:60:6f:ae:57:11:6e:c4:00:64:ba:53:a7:51
 
       - run: cat ~/repo/.circleci/ssh.config >> ~/.ssh/config
       - run:
