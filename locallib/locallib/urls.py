@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-# Use include() to add paths from the catalog application 
+# Use include() to add paths from the catalog application
 from django.urls import include
 from django.views.generic import RedirectView
 from django.conf import settings
