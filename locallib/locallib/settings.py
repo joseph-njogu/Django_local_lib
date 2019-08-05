@@ -139,3 +139,11 @@ sentry_sdk.init(
     dsn="https://eeaff2ac16544881ad1367663c72f1e7@sentry.io/1504707",
     integrations=[DjangoIntegration()]
 )
+
+# CELERY STUFF
+BROKER_URL = 'rpc://localhost'
+CELERY_RESULT_BACKEND = 'rpc://localhost'
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TIMEZONE = 'Africa/Nairobi'

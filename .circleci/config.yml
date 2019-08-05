@@ -28,42 +28,42 @@ jobs:
             pip install --upgrade pip
             pip install -r requirements.txt
             sudo apt install rsync
-      # # Step 3: run linter and tests
-      # - run:
-      #     name: run tests
-      #     command: |
-      #       . venv/bin/activate
-      #       cd locallib
-      #       coverage run --source="." manage.py test
-      #       coverage report 
-      #       coverage html
-      # #deploying to pypi
-      # - run:
-      #     name: verify git tag vs. version
-      #     command: |
-      #       python3 -m venv venv
-      #       . venv/bin/activate
-          #  python setup.py verify
+      # Step 3: run linter and tests
+      - run:
+          name: run tests
+          command: |
+            . venv/bin/activate
+            cd locallib
+            coverage run --source="." manage.py test
+            coverage report --fail-under=80
+            coverage html
+      #deploying to pypi
+      - run:
+          name: verify git tag vs. version
+          command: |
+            python3 -m venv venv
+            . venv/bin/activate
+           python setup.py verify
 
-      # - run:
-      #     name: init .pypirc
-      #     command: |
-      #       echo -e "[pypi]" >> ~/.pypirc
-      #       echo -e "username = njogu487" >> ~/.pypirc
-      #       echo -e "password = $PYPI_PASSWORD" >> ~/.pypirc      
+      - run:
+          name: init .pypirc
+          command: |
+            echo -e "[pypi]" >> ~/.pypirc
+            echo -e "username = njogu487" >> ~/.pypirc
+            echo -e "password = $PYPI_PASSWORD" >> ~/.pypirc      
 
-      # - run:
-      #     name: create packages
-      #     command: |
-      #       python3 setup.py sdist bdist_wheel
-      #      # python setup.py sdist
+      - run:
+          name: create packages
+          command: |
+            python3 setup.py sdist bdist_wheel
+           # python setup.py sdist
 
-      # - run:
-      #     name: upload to pypi
-      #     command: |
-      #       . venv/bin/activate
-      #       pip install twine
-      #       twine upload dist/*
+      - run:
+          name: upload to pypi
+          command: |
+            . venv/bin/activate
+            pip install twine
+            twine upload dist/*
       
       - add_ssh_keys:
           fingerprints:
@@ -76,62 +76,5 @@ jobs:
           command: |
             . venv/bin/activate
             pip install ansible
-            ansible-playbook -i hosts playbook.yml 
-    #  - run: cat ~/repo/.circleci/ssh.config >> ~/.ssh/config
-      
-        #   ANSIBLE_FORCE_COLOR=true ansible-playbook -i hosts playbook.yml 
-          
-    # deploy:
-    # working_directory: ~/repo
-    # docker:
-    #   - image: ansible/ansible:ubuntu1804
-    # steps:
-    #   # Installation
-    #   - run:
-    #       name: Install System Packages
-    #       command: pip install --upgrade pip && pip install ansible
-    #   # # Dependencies
-    #   # - checkout
-    #   # - restore_cache:
-    #   #     key: repo-{{ .Branch }}-{{ checksum "./ansible/requirements.yml" }}-v1
-    #   # - run: ansible-galaxy install -r ansible/requirements.yml
-    #   # - save_cache:
-    #   #     key: mootube-{{ .Branch }}-{{ checksum "./ansible/requirements.yml" }}-v1
-    #   #     paths:
-    #   #       - '/root/.ansible/roles'
-    #   # Deploy
-    #   - run: ansible-playbook ansible/deploy.yml -i ansible/hosts.ini --ask-vault-pass
-
-
-    # workflows:
-    #   version: 2
-    #   build_test_and_deploy:
-    #     jobs:
-    #       - build_and_test
-    #       - deploy:
-    #           requires:
-          #             - build_and_test
-        # version: 2
-
-
-        # jobs:
-        #   deploy:
-        #     docker:
-        #       - image: ansible/ansible:ubuntu1804
-        #         environment:
-        #           ANSIBLE_HOST_KEY_CHECKING: no
-        #     working_directory: ~/repo
-        #     steps:
-        #       - checkout
-        #       - attach_workspace:
-        #           at: ~/repo
-        #       - run: cat ~/repo/.circleci/ssh.config >> ~/.ssh/id_rsa
-        #       - run:
-        #           name: Install System Packages
-        #           command: pip install ansible
-        #       # - run: ansible-galaxy install -r .circleci/requirements.yml
-#         #       - run: ANSIBLE_FORCE_COLOR=true ansible-playbook -i hosts playbook.yml 
-# steps:
-#   - add_ssh_keys:
-#       fingerprints:
-#         - "b7:35:a6:4e:9b:0d:6d:d4:78:1e:9a:97:2a:66:6b:be
+            ansible-playbook -i hosts playbook.yml
+    
