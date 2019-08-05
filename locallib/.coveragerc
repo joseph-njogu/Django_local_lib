@@ -1,6 +1,6 @@
 [run]
 source = catalog
-omit = *migrations*, *tests*
+omit =*tests*
 
 [report]
 omit =
@@ -9,4 +9,8 @@ omit =
     locallib/urls_prometheus_wrapper.py
     catalog/views.py
     locallib/models.py 
-
+    manage.py
+    catalog/admin.py
+    catalog/urls.py
+    catalog/models.py
+    locallib/urls.py
