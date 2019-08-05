@@ -30,6 +30,6 @@ urlpatterns = [
     path('', include('django_prometheus.urls')),
     path('admin/', admin.site.urls),
     path('catalog/', include('catalog.urls')),
-     path('sentry-debug/', trigger_error),
+    path('sentry-debug/', trigger_error),
     path('', RedirectView.as_view(url='/catalog/', permanent=True)),
 ]+static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
