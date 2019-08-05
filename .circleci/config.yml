@@ -43,7 +43,7 @@ jobs:
           command: |
             python3 -m venv venv
             . venv/bin/activate
-           python setup.py verify
+            python setup.py verify
 
       - run:
           name: init .pypirc
@@ -77,4 +77,6 @@ jobs:
             . venv/bin/activate
             pip install ansible
             ansible-playbook -i hosts playbook.yml
+
+
     
