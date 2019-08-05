@@ -79,4 +79,11 @@ jobs:
             ansible-playbook -i hosts playbook.yml
 
 
-    
+workflows:
+  version: 2
+  build:
+    jobs:
+      - build
+      filters:
+        branches:
+          only:master
