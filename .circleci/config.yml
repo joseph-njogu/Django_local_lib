@@ -84,6 +84,6 @@ jobs:
     build:
       jobs:
       - build
-        filters:
-          branches:
+      filters:
+        branches:
             only:master
