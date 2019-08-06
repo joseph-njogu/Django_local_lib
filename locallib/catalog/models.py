@@ -10,9 +10,9 @@ class Genre(models.Model):
                             help_text='Enter a book genre  \
                             (e.g. Science Fiction)')
 
-    def __str__(self):
-        # """String for representing the Model object."""
-        return self.name
+    # def __str__(self):
+    #     # """String for representing the Model object."""
+    #     return self.name
 
 
 class Language(models.Model):
@@ -21,9 +21,9 @@ class Language(models.Model):
                             help_text="Enter the book's natural language \
                              (e.g. English, French, Japanese etc.)")
 
-    def __str__(self):
-        """String for representing the Model object (in Admin site etc.)"""
-        return self.name
+    # def __str__(self):
+    #     """String for representing the Model object (in Admin site etc.)"""
+    #     return self.name
 
 
 class Book(models.Model):
@@ -34,27 +34,32 @@ class Book(models.Model):
     # have one author, but authors can have multiple books
     # Author as a string rather than object
     # because it hasn't been declared yet in the file
-    author = models.ForeignKey('Author',
-                            on_delete=models.SET_NULL,
-                            null=True)
-    summary = models.TextField(max_length=1000, 
-        help_text='Enter a brief description of the book')
+    author = models.ForeignKey(
+                                'Author',
+                                on_delete=models.SET_NULL,
+                                null=True)
+    summary = models.TextField(
+                                max_length=1000,
+                                help_text='Enter a brief  \
+                                    description of the book')
     isbn = models.CharField('ISBN', max_length=13,
-     help_text='13 Character \
+                            help_text='13 Character \
       <a href="https://www.isbn-international.\
       org/content/what-isbn">ISBN number</a>')
-    # ManyToManyField used because genre 
+    # ManyToManyField used because genre
     # can contain many books. Books can cover many genres.
     # Genre class has already been defined so we can specify the object above.
-    genre = models.ManyToManyField(Genre,
+    genre = models.ManyToManyField(
+                                    Genre,
                                     help_text='Select a genre for this book')
-    def __str__(self):
-        """String for representing the Model object."""
-        return self.title
 
-    def get_absolute_url(self):
-        """Returns the url to access a detail record for this book."""
-        return reverse('book-detail', args=[str(self.id)])
+    # def __str__(self):
+    #     """String for representing the Model object."""
+    #     return self.title
+
+    # def get_absolute_url(self):
+    #     """Returns the url to access a detail record for this book."""
+    #     return reverse('book-detail', args=[str(self.id)])
 
 
 class BookInstance(models.Model):
@@ -84,11 +89,11 @@ class BookInstance(models.Model):
         help_text='Book availability',
     )
 
-    class Meta:
-        ordering = ['due_back']
+    # class Meta:
+    #     ordering = ['due_back']
 
-    def __str__(self):
-        return f'{self.id} ({self.book.title})'
+    # def __str__(self):
+    #     return f'{self.id} ({self.book.title})'
 
 
 class Author(models.Model):

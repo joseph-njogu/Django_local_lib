@@ -30,7 +30,7 @@ SECRET_KEY = '^=hclk2qfsdfghj7y6ttredrtgui7u6rdfgghjkojhgfdf#f77f*v#6xcvh4$_ch84
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1',  'josephdevs.duckdns.org', 'www.josephdevs.duckdns.org']
+ALLOWED_HOSTS = ['127.0.0.1',' 1.1.1.1',  'josephdevs.duckdns.org', 'www.josephdevs.duckdns.org']
 
 
 # Application definition
@@ -140,10 +140,10 @@ sentry_sdk.init(
     integrations=[DjangoIntegration()]
 )
 
-# CELERY STUFF
-BROKER_URL = 'rpc://localhost'
-CELERY_RESULT_BACKEND = 'rpc://localhost'
-CELERY_ACCEPT_CONTENT = ['application/json']
-CELERY_TASK_SERIALIZER = 'json'
-CELERY_RESULT_SERIALIZER = 'json'
-CELERY_TIMEZONE = 'Africa/Nairobi'
+# # CELERY STUFF
+# BROKER_URL = 'rpc://localhost'
+# CELERY_RESULT_BACKEND = 'rpc://localhost'
+# CELERY_ACCEPT_CONTENT = ['application/json']
+# CELERY_TASK_SERIALIZER = 'json'
+# CELERY_RESULT_SERIALIZER = 'json'
+# CELERY_TIMEZONE = 'Africa/Nairobi'
