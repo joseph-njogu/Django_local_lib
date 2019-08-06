@@ -16,13 +16,13 @@ class AuthorAdmin(admin.ModelAdmin):
 
 
 # Register the Admin classes for Book using the decorator
-@admin.register(Book)
-class BookAdmin(admin.ModelAdmin):
-    list_display = ('title', 'author', 'display_genre')
+# @admin.register(Book)
+# class BookAdmin(admin.ModelAdmin):
+#     list_display = ('title', 'author', 'display_genre')
 
-    def display_genre(self):
-        return ', '.join(genre.name for genre in self.genre.all()[:3])
-    display_genre.short_description = 'Genre'
+#     def display_genre(self):
+#         return ', '.join(genre.name for genre in self.genre.all()[:3])
+#     display_genre.short_description = 'Genre'
 
 
 # Register the Admin classes for BookInstance using the decorator

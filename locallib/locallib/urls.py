@@ -22,14 +22,15 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 
-def trigger_error(request):
-    division_by_zero = 1 / 0
+# def trigger_error(request):
+#     division_by_zero = 1 / 0
 
 
 urlpatterns = [
     path('', include('django_prometheus.urls')),
     path('admin/', admin.site.urls),
     path('catalog/', include('catalog.urls')),
-    path('sentry-debug/', trigger_error),
+    # path('sentry-debug/', trigger_error),
     path('', RedirectView.as_view(url='/catalog/', permanent=True)),
 ]+static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
