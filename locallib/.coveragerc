@@ -7,6 +7,5 @@ fail_under=100
 omit =
     catalog/apps.py
     locallib/wsgi.py
-    catalog/views.py
     manage.py
     locallib/urls_prometheus_wrapper.py

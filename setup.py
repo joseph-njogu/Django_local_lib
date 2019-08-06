@@ -34,7 +34,7 @@ def run(self):
 
 setup(
     name='Django_local_lib',
-    version='1.7.6',
+    version='1.7.7',
     description="Python wrapper for the CircleCI API",  # Optional
     long_description=long_description,  # Optional
     long_description_content_type='text/markdown',  # Optional (see note above)
