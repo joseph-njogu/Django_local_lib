@@ -55,11 +55,11 @@ class AuthorModelTest(TestCase):
         # Create 13 authors for pagination tests
         number_of_authors = 13
 
-        for author_id in range(number_of_authors):
-            Author.objects.create(
-                first_name=f' Christian {author_id}',
-                last_name=f'Surname {author_id}',
-            )
+        # for author_id in range(number_of_authors):
+        #     Author.objects.create(
+        #         first_name=f' Christian {author_id}',
+        #         last_name=f'Surname {author_id}',
+        #     )
 
     def test_view_uses_correct_view(self):
         response = self.client.get(reverse('index'))
