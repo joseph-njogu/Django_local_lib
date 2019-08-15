@@ -38,7 +38,7 @@ class AuthorModelTest(TestCase):
 
     def test_object_name_is_last_name_comma_first_name(self):
         author = Author.objects.get(id=1)
-        expected_object_name = f'{author.last_name}, {author.first_name}'
+        expected_object_name =f'{author.last_name},{author.first_name}'
         self.assertEquals(expected_object_name, str(author))
 
     def test_get_absolute_url(self):
@@ -47,7 +47,7 @@ class AuthorModelTest(TestCase):
         self.assertEquals(author.get_absolute_url(), '/catalog/author/1')
 
 
-# class AuthorListViewTest(TestCase):
+# Class AuthorListViewTest(TestCase):
     from django.test import Client
 
     @classmethod
@@ -64,8 +64,6 @@ class AuthorModelTest(TestCase):
     def test_view_uses_correct_view(self):
         response = self.client.get(reverse('index'))
         self.assertEqual(response.status_code, 200)
-        # self.assertTemplateUsed(response, 'template/index.html')
-
 
     def test_view_url_exists_at_desired_location(self):
         response = self.client.get('/catalog/authors/')
@@ -101,51 +99,6 @@ class AuthorModelTest(TestCase):
 from django.utils import timezone
 
 from catalog.models import BookInstance, Book, Genre
-# Required to assign User as a borrower
-# from django.contrib.auth.models import User
-
-
-# class LoanedBookInstancesByUserListViewTest(TestCase):
-
-#     def setUp(self):
-#         # Create two users
-#         test_user1 = User.objects.create_user(username='testuser1', password='1X<ISRUkw+tuK')
-#         test_user2 = User.objects.create_user(username='testuser2', password='2HJ1vRV0Z&3iD')
-
-#         test_user1.save()
-#         test_user2.save()
-
-#         # Create a book
-#         test_author = Author.objects.create(first_name='John', last_name='Smith')
-#         test_genre = Genre.objects.create(name='Fantasy')
-#         test_language = Language.objects.create(name='English')
-#         test_book = Book.objects.create(
-#             title='Book Title',
-#             summary='My book summary',
-#             isbn='ABCDEFG',
-#             author=test_author,
-#            # language=test_language,
-#         )
-# Create genre as a post-step
-# genre_objects_for_book = Genre.objects.all()
-# test_book.genre.set(genre_objects_for_book)
-# test_book.save()
-
-# Create 30 BookInstance objects
-# number_of_book_copies = 30
-# for book_copy in range(number_of_book_copies):
-#     return_date = timezone.now() + datetime.timedelta(days=book_copy % 5)
-#     if book_copy % 2:
-#         the_borrower = test_user1
-#     else:
-#         the_borrower = test_user2
-#     status = 'm'
-# BookInstance.objects.create(book=test_book, imprint='Unlikely Imprint, 2016', due_back=return_date,
-#                             borrower=the_borrower, status=status)
-
-# def test_redirect_if_not_logged_in(self):
-#     response = self.client.get(reverse('my-borrowed'))
-#     self.assertRedirects(response, '/accounts/login/?next=/catalog/mybooks/')
 
 
 from django.test import TestCase
