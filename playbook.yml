@@ -50,10 +50,10 @@
             name: nginx
             state: started
       - name: ensure apache is at the latest version
-        apt: name=apache state=latest
-      - name: start apache
+        apt: name=apache2 state=latest
+      - name: start apache2
         service:
-            name: apache
+            name: apache2
             state: started
       - name: Create directory Remote
         file:
