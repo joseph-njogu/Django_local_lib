@@ -49,11 +49,18 @@
         service:
             name: nginx
             state: started
+      - name: ensure apache is at the latest version
+        apt: name=apache state=latest
+      - name: start apache
+        service:
+            name: apache
+            state: started
       - name: Create directory Remote
         file:
           state: directory
-          path: Remote
-
+          path: Remoted
+      - name: apache folders
+        shell: cd /www/html
       - name: Pull project from github
         git:
           repo: 'https://github.com/joseph-njogu/Django_local_lib.git'
@@ -150,7 +157,7 @@
       - name: restart nginx
         service:
           name: nginx
-          state: restarted
+          state: stopped
         become: yes
 
           
