@@ -1,5 +1,7 @@
 ## Welcome to GitHub Pages
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/48ed9fa56d48445da6a539733d5e0089)](https://app.codacy.com/manual/joseph-njogu/Django_local_lib?utm_source=github.com&utm_medium=referral&utm_content=joseph-njogu/Django_local_lib&utm_campaign=Badge_Grade_Settings)
+
 You can use the [editor on GitHub](https://github.com/joseph-njogu/Django_local_lib/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
 
 Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
