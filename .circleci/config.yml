@@ -1,101 +1,17 @@
-# Python CircleCI 2.0 configuration file
-
-#should always start with a version number
-version: 2
-
-# jobs refer to a single execution of the build
+version: 2.1
+orbs:
+  node: circleci/node@1.1.6
 jobs:
-  # build is the name of the job....they can be multiple and unique
-  build:
-    # builds occur in a docker container
-    docker:
-      - image: circleci/python:3.7
-      # - image: njogu487/ubuntu1804:latest
-    # environment:
-    #   - ANSIBLE_HOST_KEY_CHECKING: False
-    working_directory: ~/repo
-
-    # series/ list of steps done for the build
-    steps:
-      # Step 1: obtain repo from GitHub
-      - checkout
-      # Step 2: create virtual env and install dependencies
-      - run:
-          name: install dependencies
-          command: |
-            python3 -m venv venv
-            . venv/bin/activate
-            pip install --upgrade pip
-            pip install -r requirements.txt
-            sudo apt install rsync
-      # Step 3: run linter and tests
-      - run:
-          name: run tests
-          command: |
-            . venv/bin/activate
-            cd locallib
-            coverage run --source="." manage.py test
-            coverage report --fail-under=100
-            coverage html
-
-
-
-  deploy:
-    docker:
-      - image: circleci/python:3.7
-    environment:
-      - ANSIBLE_HOST_KEY_CHECKING: False
+  build-and-test:
+    executor:
+      name: node/default
     steps:
       - checkout
-      - run:
-          name: verify git tag vs. version
-          command: |
-            python3 -m venv venv
-            . venv/bin/activate
-            python setup.py verify
-
-      - run:
-          name: init .pypirc
-          command: |
-            echo -e "[pypi]" >> ~/.pypirc
-            echo -e "username = njogu487" >> ~/.pypirc
-            echo -e "password = $PYPI_PASSWORD" >> ~/.pypirc      
-
-      - run:
-          name: create packages
-          command: |
-            python3 setup.py sdist bdist_wheel
-           # python setup.py sdist
-
-      - run:
-          name: upload to pypi
-          command: |
-            . venv/bin/activate
-            pip install twine
-            twine upload dist/*
-      
-      - add_ssh_keys:
-          fingerprints:
-              - "42:1d:a9:48:9d:65:98:81:77:8e:0d:56:f1:04:3c:25"
-      # - run:
-          # name: Make remote server a known host
-          # command: ssh-keyscan josephdevs.duckdns.org >> ~/.ssh/known_hosts 
-          #- run:
-          #name: executing ansible to a remote server
-          #command: |
-          # . venv/bin/activate
-          # pip install ansible
-          # ansible-playbook -i hosts playbook.yml
-
-
-                #workflows:
-                #version: 2
-                #build_deploy:
-                #jobs:
-                #- build
-                #- deploy:
-                #requires:
-                #- build
-                #filters:
-                # branches:
-                #only: master
+      - node/with-cache:
+          steps:
+            - run: npm install
+            - run: npm test
+workflows:
+    build-and-test:
+      jobs:
+        - build-and-test
