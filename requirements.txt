@@ -21,7 +21,7 @@ MarkupSafe==1.1.1
 pkginfo==1.5.0.1
 prometheus-client==0.7.1
 pycparser==2.19
-Pygments==2.4.2
+Pygments==2.7.4
 pytz==2019.1
 PyYAML==5.1.1
 readme-renderer==24.0
