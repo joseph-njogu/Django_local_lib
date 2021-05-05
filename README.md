@@ -1,3 +1,9 @@
+[![Infrastructure Tests](https://www.bridgecrew.cloud/badges/github/joseph-njogu/django_local_lib/general)](https://www.bridgecrew.cloud/link/badge?vcs=github&fullRepo=joseph-njogu%2FDjango_local_lib&benchmark=INFRASTRUCTURE+SECURITY)
+
+
+
+
+
 ## Welcome to GitHub Pages
 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/48ed9fa56d48445da6a539733d5e0089)](https://app.codacy.com/manual/joseph-njogu/Django_local_lib?utm_source=github.com&utm_medium=referral&utm_content=joseph-njogu/Django_local_lib&utm_campaign=Badge_Grade_Settings)
